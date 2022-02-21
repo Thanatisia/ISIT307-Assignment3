@@ -159,7 +159,7 @@
     function get_value($db_conn, $table_name, $column, $condition)
     {
         $ret_val = "";
-        $sql_stmt = "SELECT * FROM users WHERE $condition";
+        $sql_stmt = "SELECT * FROM $table_name WHERE $condition";
         
         // Query and retrieve rows
         $result = $db_conn->query($sql_stmt);
