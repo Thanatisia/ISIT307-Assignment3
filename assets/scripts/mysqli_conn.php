@@ -102,7 +102,7 @@
          *                       => type(array)             // If there are results
          *          )
          */
-        $exec_result = false;
+        //$exec_result = false;
         $return_val = array(
             'return_code' => 0,         // Return Code
             'size' => 0,                // Number of Changes
@@ -301,13 +301,13 @@
             if($db_conn->query($sql_stmt) === True)
             {
                 // If statement is correct
-                echo "table $table_name is created.", "<br/>";
+                //echo "table $table_name is created.", "<br/>";
                 $success_token = True;
             }
-            else
-            {
-                echo "Failed to create $table_name...", "<br/>";
-            }
+            //else
+            //{
+                //echo "Failed to create $table_name...", "<br/>";
+            //}
         }
         return $success_token;
     }
@@ -322,7 +322,7 @@
                 ");";
          */
         $sql_stmt = "INSERT INTO $table_name ($columns) VALUES ($values)";
-        $success_token = false;
+        //$success_token = false;
 
         // Append details
         

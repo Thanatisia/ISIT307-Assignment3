@@ -58,11 +58,11 @@
             if($table_create_res)
             {
                 // Table created successfully
-                echo "Table $tb_name created successfully";
+                echo "Table created successfully";
             }
             else
             {
-                echo "Error creating table [$tb_name]...", "<br/>";
+                echo "Error creating table...", "<br/>";
             }
         }
 

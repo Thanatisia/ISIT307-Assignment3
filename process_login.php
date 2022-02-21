@@ -78,11 +78,25 @@
                     // Redirect to home page
                     header("refresh: 0, url=index.php");
                 }
+                else
+                {
+                    echo "<script>alert('Invalid user/password');</script>";
+
+                    // Redirect  to login page
+                    header("refresh: 0, url=login.php");
+                }
+            }
+            else
+            {
+                echo "<script>alert('Invalid user/password');</script>";
+
+                // Redirect  to login page
+                header("refresh: 0, url=login.php");           
             } 
         }
         else
         {
-            echo "<script>alert('Invalid user');</script>";
+            echo "<script>alert('Invalid user/password');</script>";
 
             // Redirect  to login page
             header("refresh: 0, url=login.php");

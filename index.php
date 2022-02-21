@@ -13,14 +13,13 @@
     }
 
     // Get SESSION values
-    $u_name = "";
-    if(isset($_SESSION["username"]))
-    {
-        echo "<script>alert('" . $_SESSION["username"] . "');</script>";
-        $u_name = $_SESSION["username"];
-        $u_role = $_SESSION["role"];
-    }
-
+    //$u_name = "";
+    //if(isset($_SESSION["username"]))
+    //{
+        //echo "<script>alert('" . $_SESSION["username"] . "');</script>";
+        //$u_name = $_SESSION["username"];
+        //$u_role = $_SESSION["role"];
+    //}
 ?>
 
 <html>
@@ -38,7 +37,7 @@
             /*
              * If Logged In
              */
-            if(!$u_name === "")
+            if(!$u_name == "")
             {
                 echo "<h3>Welcome! $u_name</h3>";
             }
