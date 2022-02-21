@@ -2,7 +2,7 @@
     /*
      * Setup DB
      */
-    require("mysqli_conn.php");
+    require("./assets/scripts/mysqli_conn.php");
 
     // Try and make connection if doesnt exist
     $conn = db_conn(DBHOST, DBUSER, DBPASS);
@@ -46,8 +46,9 @@
         // Check if table exists
         $tb_name = "users";
         $column_definition = "ROW_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            u_name nvarchar(50) NOT NULL,
-            u_pass nvarchar(50) NOT NULL";
+            username nvarchar(50) NOT NULL,
+            password nvarchar(50) NOT NULL,
+            role, nvarchar(50) NULL DEFAULT = 'user'";
         $table_exists = chk_table_exists($conn, $tb_name);
         if(!$table_exists)
         {
@@ -68,4 +69,8 @@
         // Close connection after use
         close_db($conn);
     }
+
+    // After setup complete
+    // Return to index page
+    header("Location: index.php");
 ?>

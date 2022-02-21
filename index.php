@@ -15,15 +15,16 @@
 
 <html>
 	<head>
-		<title>A3 Guide</title>
+        <title>Index Page</title>
+        <link href="./assets/styles/css/index.css" type="text/stylesheet" rel="stylesheet"/>
 	</head>
 
 	<body>
-        <p>
-            - Create Database
-            <a href="process_db_setup.php">Create Database</a>
-            <br/>
-        </p>
+        <?php include("./header.inc.php"); ?> <!-- Include Header -->
+
+        <h1>InfoTech Services</h1>
+
+        <?php include("./footer.inc.php"); ?> <!-- Include Footer -->
 	</body>
 </html>
 
