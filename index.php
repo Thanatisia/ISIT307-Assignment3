@@ -11,6 +11,16 @@
         // Close Session if logout button is pressed
         session_destroy();
     }
+
+    // Get SESSION values
+    $u_name = "";
+    if(isset($_SESSION["username"]))
+    {
+        echo "<script>alert('" . $_SESSION["username"] . "');</script>";
+        $u_name = $_SESSION["username"];
+        $u_role = $_SESSION["role"];
+    }
+
 ?>
 
 <html>
@@ -23,6 +33,16 @@
         <?php include("./header.inc.php"); ?> <!-- Include Header -->
 
         <h1>InfoTech Services</h1>
+
+        <?php
+            /*
+             * If Logged In
+             */
+            if(!$u_name === "")
+            {
+                echo "<h3>Welcome! $u_name</h3>";
+            }
+        ?>
 
         <?php include("./footer.inc.php"); ?> <!-- Include Footer -->
 	</body>

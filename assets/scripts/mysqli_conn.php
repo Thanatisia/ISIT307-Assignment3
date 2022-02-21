@@ -112,10 +112,18 @@
         // Prepare Statement for use
         
         // Check if statement is valid
-        if( ($return_val['return_code'] = $db_conn->query($sql_stmt)) === TRUE)
+        $return_val['return_code'] = $db_conn->query($sql_stmt);
+
+        // Get Type
+        $query_res_type = gettype($return_val['return_code']);
+
+        if($query_res_type == "array")
         {
+            /*
+             * Array result
+             */
             // Statement is valid
-            $exec_result = $return_val['size']->num_rows;
+            $return_val['size'] = $return_val['return_code']->num_rows;
 
             // Get Result
             $i = 0;                             // Counter for row number
@@ -126,13 +134,11 @@
                 $i++;
             }
         }
-
-        $return_val["result"] = $exec_result;
-
+        
         return $return_val;
     }
 
-    function get_value($db_conn, $table_name, $column, $condition)
+    function get_row($db_conn, $table_name, $column, $condition)
     {
         /*
          * Get a cell value from a row in a column according to the condition
@@ -148,6 +154,29 @@
         $return_val = $result->fetch_assoc();
 
         return $return_val;
+    }
+
+    function get_value($db_conn, $table_name, $column, $condition)
+    {
+        $ret_val = "";
+        $sql_stmt = "SELECT * FROM users WHERE $condition";
+        
+        // Query and retrieve rows
+        $result = $db_conn->query($sql_stmt);
+
+        // Count number of rows affected
+        $count = $result->num_rows;
+
+        // Get all results
+        $row = $result->fetch_assoc();
+
+        // Check if records are found
+        if($count > 0)
+        {
+            // Records Found
+            $ret_val = $row[$column];
+        }
+        return $ret_val;
     }
 
     /*
@@ -281,5 +310,28 @@
             }
         }
         return $success_token;
+    }
+
+    function insert_row($db_conn, $table_name, $columns, $values, $unique)
+    {
+        /*
+         * Insert row into table
+            $sql_stmt = "INSERT INTO users (username, password) VALUES (" . 
+                "'" . $_POST["username"] . "', " . 
+                "'" . password_hash($_POST["password"], PASSWORD_DEFAULT) . "'" .
+                ");";
+         */
+        $sql_stmt = "INSERT INTO $table_name ($columns) VALUES ($values)";
+        $success_token = false;
+
+        // Append details
+        
+        if($unique)
+        {
+            // Check if row is unique                
+        }
+
+        $result = $db_conn->query($sql_stmt);
+        return $result; 
     }
 ?>
