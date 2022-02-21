@@ -5,7 +5,7 @@
     require("mysqli_conn.php");
 
     // Try and make connection if doesnt exist
-    $conn = db_conn("localhost", "root", "");
+    $conn = db_conn(DBHOST, DBUSER, DBPASS);
     $verify_res = db_conn_verify($conn);
 
     if($verify_res)
@@ -38,7 +38,7 @@
 
  
     // Create a new connection after database is created
-    $conn = db_conn("localhost", "root", "", $DBNAME);
+    $conn = db_conn(DBHOST, DBUSER, DBPASS, $DBNAME);
     $verify_res = db_conn_verify($conn);
 
     if($verify_res)
