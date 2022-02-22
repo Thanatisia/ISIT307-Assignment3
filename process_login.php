@@ -60,6 +60,10 @@
              */
             $sql_stmt = "SELECT * FROM users WHERE username='$u_name'";
             $result = $conn->query($sql_stmt);
+            // Close connection after use
+            $conn->close();
+
+            // Process Data
             $count = $result->num_rows;
             $row = $result->fetch_assoc();
             if($count > 0)
@@ -102,7 +106,4 @@
             header("refresh: 0, url=login.php");
         }
     }
-
-    // Close connection after use
-    $conn->close();
 ?>

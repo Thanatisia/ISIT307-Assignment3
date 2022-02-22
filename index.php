@@ -31,6 +31,8 @@
 	<body>
         <?php include("./header.inc.php"); ?> <!-- Include Header -->
 
+        <hr/>
+
         <h1>InfoTech Services</h1>
 
         <?php
@@ -42,6 +44,8 @@
                 echo "<h3>Welcome! $u_name</h3>";
             }
         ?>
+
+        <hr/>
 
         <?php include("./footer.inc.php"); ?> <!-- Include Footer -->
 	</body>

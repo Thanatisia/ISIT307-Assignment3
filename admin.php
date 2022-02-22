@@ -10,9 +10,17 @@
 	<body>
         <?php include './header.inc.php' ?> <!-- Header -->
 
-        <ul> Functions
-            <a href="process_db_setup.php">Setup Database</a>
-        </ul>
+        <hr/>
+
+        <h1>Admin's Page</h1>
+
+        <div>
+            <ul> Functions
+                <a href="process_db_setup.php">Setup Database</a>
+            </ul>
+        </div>
+
+        <hr/>
 
         <?php include './footer.inc.php' ?> <!-- Footer -->
 	</body>

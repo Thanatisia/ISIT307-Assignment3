@@ -20,9 +20,13 @@
 	<body>
         <?php include('./header.inc.php'); ?>
 
+        <hr/>
+
         <?php
-            echo "<h1>Welcome, $u_name!</h1>"    
+            echo "<h1>$u_name's Page</h1>"    
         ?>
+
+        <hr/>
 
         <?php include('./footer.inc.php'); ?>
 	</body>

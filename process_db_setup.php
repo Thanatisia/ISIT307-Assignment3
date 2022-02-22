@@ -2,7 +2,7 @@
     /*
      * Setup DB
      */
-    //require("./assets/scripts/mysqli_conn.php");
+    require_once("./assets/scripts/mysqli_conn.php");
 
     // Try and make connection if doesnt exist
     $conn = db_conn(DBHOST, DBUSER, DBPASS);
@@ -36,7 +36,7 @@
         close_db($conn); 
     }
 
- 
+
     // Create a new connection after database is created
     $conn = db_conn(DBHOST, DBUSER, DBPASS, $DBNAME);
     $verify_res = db_conn_verify($conn);

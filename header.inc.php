@@ -1,5 +1,6 @@
 <?php
     // Start Session for use
+    //session_start();
 
     // Check button press
     if(isset($_POST["Logout"]))
@@ -24,12 +25,21 @@
 
     <body>
         <div>
-            <a href="./index.php">Home Page</a>
+            <a href="./index.php">Home Page</a> | 
             <?php
                 // Role-specific
-                if($role == "admin")
+                if(!$role == "")
                 {
-                    echo "<a href='admin.php'>Admin</a>";
+                    if($role == "admin")
+                    {
+                        echo "<a href='admin.php'>Admin</a>";
+                    }
+                    elseif($role == "user")
+                    {
+                        echo "<a href='my_account.php'>My Account</a>";
+                    }
+
+                    echo " | ";
                 }
 
                 // Session-specific
@@ -42,8 +52,13 @@
                 {
                     // Not Logged In
                     echo "<a href='login.php'>Login</a>";
+
+                    echo " | ";
+
                     echo "<a href='register.php'>Register</a>";
                 }
+
+                echo " | ";
             ?>
 
             <!-- form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

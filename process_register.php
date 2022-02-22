@@ -2,8 +2,8 @@
     /*
      * Registration Processing Page
      */
-    require("./assets/scripts/mysqli_conn.php");     // Import MySQLi details
-    require("./assets/scripts/extlib.php");          // Import extlib
+    require_once("./assets/scripts/mysqli_conn.php");     // Import MySQLi details
+    require_once("./assets/scripts/extlib.php");          // Import extlib
 
     // Check if connection to MySQL works
     $conn = db_conn(DBHOST, DBUSER, DBPASS);
@@ -66,10 +66,13 @@
                 ");";
                 $res = stmt_exec($conn, $sql_stmt);
                 // echo "Result : " . $res['return_code'] . ", Size : " . $res['size'] . "<br/>";
-
+                
                 // Check if user has been inserted
                 // $sql_stmt = "SELECT " . $_POST["username"] . "FROM user WHERE username = '" . $_POST["username"] . "'";
                 $exists = chk_record_exists($conn, "users", "username", "username = '" . sanitize_input($_POST["username"]) . "'");
+
+                // Close connection after use
+                $conn->close();
 
                 if($exists)
                 {
@@ -84,7 +87,4 @@
             }
         }
     }
-    
-    // Close connection after use
-    $conn->close();
 ?>
