@@ -34,7 +34,7 @@
                     {
                         echo "<a href='admin.php'>Admin</a>";
                     }
-                    elseif($role == "user")
+                    elseif($role == "client")
                     {
                         echo "<a href='my_account.php'>My Account</a>";
                     }

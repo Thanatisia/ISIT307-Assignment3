@@ -4,9 +4,13 @@
      */
     require("./assets/scripts/mysqli_conn.php");     // Import MySQLi details
     require("./assets/scripts/extlib.php");             // Import External Library
+    require("./assets/scripts/client_info.php");        // Temporarily storing client usable data
 
     // Start Session for use
     session_start();
+
+    // Initialize Class Variables
+    $user_info = new ClientInfo();
 
     // Check if connection to MySQL works
     $conn = db_conn(DBHOST, DBUSER, DBPASS);
@@ -72,10 +76,15 @@
                 // echo "<script>alert('" . $_POST["password"] . " : " . hash("sha512", $_POST["password"]) . " : " . $row["password"] .  "');</script>";
                 if(password_verify(sanitize_input($_POST["password"]), $row["password"]))
                 {
-                    // Get Role and store in session
+                    // Get Column values from $row and 
+                    // store in session
                     $_SESSION["role"] = $row["role"];    // Get First/only result (no duplicates)
                     $_SESSION["username"] = $u_name;
-                    
+                    $_SESSION["name"] = $row["name"];
+                    $_SESSION["surname"] = $row["surname"];
+
+                    $user_info->set_name($row["name"], $row["surname"]); // Set in class container for global use
+
                     // user input password is the same as database-stored password
                     echo "<script>alert('Login Successful');</script>";
 

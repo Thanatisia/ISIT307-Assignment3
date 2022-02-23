@@ -179,6 +179,28 @@
         return $ret_val;
     }
 
+    function get_table_size($db_conn, $table_name, $column="*", $condition="")
+    {
+        /*
+         * Get number of rows in database
+         */
+        $sql_stmt = "SELECT $column FROM $table_name";
+
+        // Append WHERE condition if exists
+        if( "$condition" === " " )
+        {
+            $sql_stmt .= " WHERE $condition ";
+        }
+
+        // Prepare and execute query
+        $result = $db_conn->query($sql_stmt);
+
+        // Get Number of rows returned
+        $row_count = $result->num_rows;
+
+        return $row_count;
+    }
+
     /*
      * Verification Functionalities
      */

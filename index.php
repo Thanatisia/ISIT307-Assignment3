@@ -39,7 +39,13 @@
             /*
              * If Logged In
              */
-            if(!$u_name == "")
+            if($u_name == "")
+            {
+                echo "<h3>Welcome!</h3>" . 
+                     "<br/>" . 
+                     "<p> Please Register or Sign In to access the site!" . "<br/>" . "</p>";
+            }
+            else
             {
                 echo "<h3>Welcome! $u_name</h3>";
             }
