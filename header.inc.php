@@ -1,6 +1,9 @@
 <?php
     // Start Session for use
-    //session_start();
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
 
     // Check button press
     if(isset($_POST["Logout"]))
@@ -12,10 +15,14 @@
     // Check Sessions
     $role= "";
     $u_name = "";
-    if(isset($_SESSION["username"]) && isset($_SESSION["role"]))
+    $u_firstname = "";
+    $u_surname = "";
+    if(isset($_SESSION["username"]) && isset($_SESSION["role"]) && isset($_SESSION["name"]) && isset($_SESSION["surname"]))
     {
         $role = $_SESSION["role"];
         $u_name = $_SESSION["username"];
+        $u_firstname = $_SESSION["name"];
+        $u_surname = $_SESSION["surname"];
     }   
 ?>
 <html>
@@ -25,7 +32,7 @@
 
     <body>
         <div>
-            <a href="./index.php">Home Page</a> | 
+            <a href="index.php">Home Page</a> | 
             <?php
                 // Role-specific
                 if(!$role == "")

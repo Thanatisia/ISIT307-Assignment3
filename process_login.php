@@ -23,73 +23,84 @@
         // Connection successful
         
         // Check if database exists 
-        if(!chk_db_exists($conn, $DBNAME))
+        if(chk_db_exists($conn, $DBNAME))
         {
             /*
-             * Database doesnt exist
-             * - Create database
+             * Database Exists
              */
-            // $result = create_db($conn, $DBNAME);
-            echo "Error 404 : Database not found!<br/>";
-        }
 
-        // Close database after use
-        close_db($conn);
-    }
+            // Close database after use
+            close_db($conn);
 
-    // Make connection
-    $conn = db_conn(DBHOST, DBUSER, DBPASS, $DBNAME);
+            // Make connection
+            $conn = db_conn(DBHOST, DBUSER, DBPASS, $DBNAME);
 
-    // Handle FORM data
-    if(isset($_POST["username"]) && isset($_POST["password"]))
-    {
-        // If form data are all filled appropriately
-
-        // Get values
-        $u_name = sanitize_input($_POST["username"]);
-
-        /* 
-         * Security Protocol : Password Validation
-         *  - Verify if the hashed password stored in the database ===
-         *              the hashed value after hashing user's password input
-         */
-        // Check if user exists
-        $uname_Exists = chk_record_exists($conn, "users", "username", "username = '$u_name';");
-
-        if($uname_Exists)
-        {
-            /*
-             * If username exists
-             * - Check password 
-             */
-            $sql_stmt = "SELECT * FROM users WHERE username='$u_name'";
-            $result = $conn->query($sql_stmt);
-            // Close connection after use
-            $conn->close();
-
-            // Process Data
-            $count = $result->num_rows;
-            $row = $result->fetch_assoc();
-            if($count > 0)
+            // Handle FORM data
+            if(isset($_POST["username"]) && isset($_POST["password"]))
             {
-                // Records Found
-                // echo "<script>alert('" . $_POST["password"] . " : " . hash("sha512", $_POST["password"]) . " : " . $row["password"] .  "');</script>";
-                if(password_verify(sanitize_input($_POST["password"]), $row["password"]))
+                // If form data are all filled appropriately
+
+                // Get values
+                $u_name = sanitize_input($_POST["username"]);
+
+                /* 
+                 * Security Protocol : Password Validation
+                 *  - Verify if the hashed password stored in the database ===
+                 *              the hashed value after hashing user's password input
+                 */
+                // Check if user exists
+                $uname_Exists = chk_record_exists($conn, "users", "username", "username = '$u_name';");
+
+                if($uname_Exists)
                 {
-                    // Get Column values from $row and 
-                    // store in session
-                    $_SESSION["role"] = $row["role"];    // Get First/only result (no duplicates)
-                    $_SESSION["username"] = $u_name;
-                    $_SESSION["name"] = $row["name"];
-                    $_SESSION["surname"] = $row["surname"];
+                    /*
+                     * If username exists
+                     * - Check password 
+                     */
+                    $sql_stmt = "SELECT * FROM users WHERE username='$u_name'";
+                    $result = $conn->query($sql_stmt);
+                    // Close connection after use
+                    $conn->close();
 
-                    $user_info->set_name($row["name"], $row["surname"]); // Set in class container for global use
+                    // Process Data
+                    $count = $result->num_rows;
+                    $row = $result->fetch_assoc();
+                    if($count > 0)
+                    {
+                        // Records Found
+                        // echo "<script>alert('" . $_POST["password"] . " : " . hash("sha512", $_POST["password"]) . " : " . $row["password"] .  "');</script>";
+                        if(password_verify(sanitize_input($_POST["password"]), $row["password"]))
+                        {
+                            // Get Column values from $row and 
+                            // store in session
+                            $_SESSION["role"] = $row["role"];    // Get First/only result (no duplicates)
+                            $_SESSION["username"] = $u_name;
+                            $_SESSION["name"] = $row["name"];
+                            $_SESSION["surname"] = $row["surname"];
 
-                    // user input password is the same as database-stored password
-                    echo "<script>alert('Login Successful');</script>";
+                            $user_info->set_name($row["name"], $row["surname"]); // Set in class container for global use
 
-                    // Redirect to home page
-                    header("refresh: 0, url=index.php");
+                            // user input password is the same as database-stored password
+                            echo "<script>alert('Login Successful');</script>";
+
+                            // Redirect to home page
+                            header("refresh: 0, url=index.php");
+                        }
+                        else
+                        {
+                            echo "<script>alert('Invalid user/password');</script>";
+
+                            // Redirect  to login page
+                            header("refresh: 0, url=login.php");
+                        }
+                    }
+                    else
+                    {
+                        echo "<script>alert('Invalid user/password');</script>";
+
+                        // Redirect  to login page
+                        header("refresh: 0, url=login.php");           
+                    } 
                 }
                 else
                 {
@@ -99,20 +110,16 @@
                     header("refresh: 0, url=login.php");
                 }
             }
-            else
-            {
-                echo "<script>alert('Invalid user/password');</script>";
-
-                // Redirect  to login page
-                header("refresh: 0, url=login.php");           
-            } 
         }
         else
         {
-            echo "<script>alert('Invalid user/password');</script>";
-
-            // Redirect  to login page
-            header("refresh: 0, url=login.php");
+            /*
+             * Database doesnt exist
+             * - Create database
+             */
+            // $result = create_db($conn, $DBNAME);
+            echo "Error 404 : Database not found!<br/>";
         }
     }
+
 ?>

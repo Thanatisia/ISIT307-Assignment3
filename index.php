@@ -39,7 +39,8 @@
             /*
              * If Logged In
              */
-            if($u_name == "")
+            
+            if($u_firstname == "")
             {
                 echo "<h3>Welcome!</h3>" . 
                      "<br/>" . 
@@ -47,7 +48,7 @@
             }
             else
             {
-                echo "<h3>Welcome! $u_name</h3>";
+                echo "<h3>Welcome! $u_firstname $u_surname</h3>";
             }
         ?>
 

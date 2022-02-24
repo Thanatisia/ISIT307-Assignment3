@@ -36,19 +36,19 @@
 
             <ul>Products
                 <li>
-                    <a href="./assets/sites/admin_pages/products/list_all_available_equipments.php">List all available Equipments</a>
+                    <a href="./products_list_all_available.php">List all available Equipments</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/admin_pages/products/list_rented_equipments.php">List all rented Equipments</a>
+                    <a href="./products_list_all_rented.php">List all rented Equipments</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/admin_pages/products/insert_equipments.php">Insert Equipment</a>
+                    <a href="./products_insert.php">Insert Equipment</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/admin_pages/products/view_equipments.php">View Equipment</a>
+                    <a href="./products_view.php">View Equipment</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/admin_pages/products/search_equipments.php">Search Equipment</a>
+                    <a href="./products_search.php">Search Equipment</a>
                 </li>
             </ul>
         </div>

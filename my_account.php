@@ -40,28 +40,28 @@
         <div>Functions
             <ul> General
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_list_all_available.php">List all available products</a>
+                    <a href="./products_list_all_available.php">List all available products</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_list_rent_history.php">List rent history</a>
+                    <a href="./products_list_rent_history.php">List rent history</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_search.php">Search Product</a>
+                    <a href="./products_search.php">Search Product</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_rent.php">Rent Product</a>
+                    <a href="./products_rent.php">Rent Product</a>
                 </li>
             </ul>
 
             <ul> Rented Products
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_list_renting.php">List renting products</a>
+                    <a href="./products_list_renting.php">List renting products</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_extend_rent_period.php">Extend renting period</a>
+                    <a href="./products_extend_rent_period.php">Extend renting period</a>
                 </li>
                 <li>
-                    <a href="./assets/sites/user_pages/products/products_return.php">Return Product</a>
+                    <a href="./products_return.php">Return Product</a>
                 </li>
             </ul>
         </div>

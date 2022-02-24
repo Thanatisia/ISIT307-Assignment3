@@ -112,20 +112,24 @@
         // Prepare Statement for use
         
         // Check if statement is valid
-        $return_val['return_code'] = $db_conn->query($sql_stmt);
+        //$return_val['return_code'] = $db_conn->query($sql_stmt);
+        $result = $db_conn->query($sql_stmt);
+        //$return_val['return_code'] = $ret;
 
         // Get Type
-        $query_res_type = gettype($return_val['return_code']);
+        //$query_res_type = gettype($return_val['return_code']);
 
-        if($query_res_type == "array")
-        {
+        //if($query_res_type == "array")
+        //{
+        
             /*
              * Array result
              */
             // Statement is valid
-            $return_val['size'] = $return_val['return_code']->num_rows;
+            //$return_val['size'] = $ret->num_rows;
 
             // Get Result
+            /*
             $i = 0;                             // Counter for row number
             $return_val["result"] = array();    // If there are data to store - convert to array to store data
             while($row = $return_val['return_code']->fetch_assoc())
@@ -133,15 +137,30 @@
                 $return_val["result"][$i] = $row;
                 $i++;
             }
-        }
+             */
+            //$return_val['result'] = $ret->fetch_assoc();
+        // }
+        $row_count = $result->num_rows;
         
+        // Get all rows
+        //fetch_assoc only returns 1 row at a time
+        $all_rows = array();
+        while($rows = $result->fetch_assoc()) 
+        {
+            array_push($all_rows, $rows);
+        }
+
+        $return_val['return_code'] = $result;
+        $return_val['size'] = $row_count;
+        $return_val['result'] = $all_rows;
+
         return $return_val;
     }
 
     function get_row($db_conn, $table_name, $column, $condition)
     {
         /*
-         * Get a cell value from a row in a column according to the condition
+         * Retrieve a row from a table according to a specific condition
          */
         $sql_stmt = "SELECT $column FROM $table_name WHERE $condition";
 
@@ -158,6 +177,9 @@
 
     function get_value($db_conn, $table_name, $column, $condition)
     {
+        /*
+         * Get a cell value from a row in a column according to the condition
+         */
         $ret_val = "";
         $sql_stmt = "SELECT * FROM $table_name WHERE $condition";
         
@@ -177,6 +199,42 @@
             $ret_val = $row[$column];
         }
         return $ret_val;
+    }
+
+    function get_table_contents($db_conn, $table_name, $column="*", $condition="")
+    {
+        /*
+         * Select a table and get all rows
+         *  - Get all values in the column if column is specified
+         *      - Default: * (All)
+         *  :: Returns
+         *      [0] Number of rows affected (int)
+         *      [1] Column and Values       (associative array)
+         */
+        $sql_stmt = "SELECT $column FROM $table_name";
+
+        if(!$condition == "")
+        {
+            // If condition is specified
+            $sql_stmt .= " WHERE $condition";
+        }
+
+        // Query and retrieve rows
+        $result = $db_conn->query($sql_stmt);
+
+        // Count number of rows affected
+        $count = $result->num_rows;
+
+        // Get all rows
+        //fetch_assoc only returns 1 row at a time
+        //  - $row = $result->fetch_assoc();
+        $all_rows = array();
+        while($rows = $result->fetch_assoc()) 
+        {
+            array_push($all_rows, $rows);
+        }
+
+        return array($count, $all_rows);
     }
 
     function get_table_size($db_conn, $table_name, $column="*", $condition="")
