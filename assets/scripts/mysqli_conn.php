@@ -118,6 +118,7 @@
 
         // Get Type
         //$query_res_type = gettype($return_val['return_code']);
+        $query_res_type = gettype($result);
 
         //if($query_res_type == "array")
         //{
@@ -140,20 +141,28 @@
              */
             //$return_val['result'] = $ret->fetch_assoc();
         // }
-        $row_count = $result->num_rows;
-        
-        // Get all rows
-        //fetch_assoc only returns 1 row at a time
-        $all_rows = array();
-        while($rows = $result->fetch_assoc()) 
+        switch($query_res_type)
         {
-            array_push($all_rows, $rows);
+        case "bool":
+            $return_val['return_code'] = $result;
+            break;
+        case "object":
+            $row_count = $result->num_rows;
+           // Get all rows
+            //fetch_assoc only returns 1 row at a time
+            $all_rows = array();
+            while($rows = $result->fetch_assoc()) 
+            {
+                array_push($all_rows, $rows);
+            }
+            $return_val['return_code'] = $result;
+            $return_val['size'] = $row_count;
+            $return_val['result'] = $all_rows;
+            break;
+        default:
+            break;
         }
-
-        $return_val['return_code'] = $result;
-        $return_val['size'] = $row_count;
-        $return_val['result'] = $all_rows;
-
+        
         return $return_val;
     }
 
@@ -173,6 +182,31 @@
         $return_val = $result->fetch_assoc();
 
         return $return_val;
+    }
+
+    function get_rows($db_conn, $table_name, $column, $condition)
+    {
+        /*
+         * Retrieve multiple rows from a table according to a specific condition
+         */
+        $sql_stmt = "SELECT $column FROM $table_name WHERE $condition";
+
+        // Query and retrieve rows
+        $result = $db_conn->query($sql_stmt);
+
+        // Count number of rows affected
+        $count = $result->num_rows;
+
+        // Get all rows
+        //fetch_assoc only returns 1 row at a time
+        //  - $row = $result->fetch_assoc();
+        $all_rows = array();
+        while($rows = $result->fetch_assoc()) 
+        {
+            array_push($all_rows, $rows);
+        }
+
+        return array($count, $all_rows);
     }
 
     function get_value($db_conn, $table_name, $column, $condition)
@@ -392,7 +426,7 @@
         return $success_token;
     }
 
-    function insert_row($db_conn, $table_name, $columns, $values, $unique)
+    function insert_row($db_conn, $table_name, $columns, $values, $unique=False)
     {
         /*
          * Insert row into table
@@ -413,5 +447,24 @@
 
         $result = $db_conn->query($sql_stmt);
         return $result; 
+    }
+
+    function update_row($db_conn, $table_name, $target_column, $new_value, $filter_condition)
+    {
+        /*
+         * Update a row in a table
+         */
+        // $sql_stmt = "UPDATE $table_name SET prod_Status='" . $new_status . "' WHERE prod_ID=" . "'" . $prod_id . "'";
+        $sql_stmt = "UPDATE $table_name SET $target_column=$new_value WHERE $filter_condition";
+        $chk_Exec = False;
+
+        if($db_conn->query($sql_stmt))
+        {
+            /*
+             * Process successful
+             */
+            $chk_Exec = True;
+        }
+        return $chk_Exec;
     }
 ?>

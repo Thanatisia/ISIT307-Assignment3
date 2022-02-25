@@ -33,7 +33,7 @@
 
         <hr/>
 
-        <h1>InfoTech Services</h1>
+        <h1>IT for rent</h1>
 
         <?php
             /*

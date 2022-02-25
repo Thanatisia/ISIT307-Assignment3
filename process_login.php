@@ -4,7 +4,7 @@
      */
     require("./assets/scripts/mysqli_conn.php");     // Import MySQLi details
     require("./assets/scripts/extlib.php");             // Import External Library
-    require("./assets/scripts/client_info.php");        // Temporarily storing client usable data
+    include_once("./assets/scripts/client_info.php");        // Temporarily storing client usable data
 
     // Start Session for use
     session_start();
@@ -74,10 +74,12 @@
                             // Get Column values from $row and 
                             // store in session
                             $_SESSION["role"] = $row["role"];    // Get First/only result (no duplicates)
+                            $_SESSION["userID"] = $row["userID"];
                             $_SESSION["username"] = $u_name;
                             $_SESSION["name"] = $row["name"];
                             $_SESSION["surname"] = $row["surname"];
 
+                            $user_info->set_uID($row["userID"]);
                             $user_info->set_name($row["name"], $row["surname"]); // Set in class container for global use
 
                             // user input password is the same as database-stored password

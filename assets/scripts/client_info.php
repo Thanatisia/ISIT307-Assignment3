@@ -5,6 +5,7 @@
     class ClientInfo
     {
         // Properties
+        public $u_ID = "";
         public $u_name = "";
         public $firstName = "";
         public $surname = "";
@@ -14,6 +15,10 @@
         /* Methods/Functions */
 
         // Getter
+        function get_uID()
+        {
+            return $this->u_ID;
+        }
         function get_name()
         {
             return $this->firstName;
@@ -32,6 +37,13 @@
         }
 
         // Setter
+        function set_uID($new_uid)
+        {
+            if(!$new_uid)
+            {
+                $this->u_ID = $new_uid;
+            }
+        }
         function set_name($new_firstname="", $new_lastname="")
         {
             if(!$new_firstname == "")

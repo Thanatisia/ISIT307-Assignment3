@@ -125,14 +125,15 @@
             }
         ?>
 
-        <div><b>Add Product</b>
+        <div>
+            <p><b><u>Add Product</u></b></p>
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                Product ID                      : <input type="text"    name="prodID"               value="<?php if(isset($_POST['prodID'])) echo $_POST['prodID']; ?>"                         placeholder="yyyy-mm-dd">
-                Product Category                : <input type="text"    name="prodCategory"         value="<?php if(isset($_POST['prodCategory'])) echo $_POST['prodCategory']; ?>"             placeholder="Laptop | Router | Modem...">
-                Product Brand                   : <input type="text"    name="prodBrand"            value="<?php if(isset($_POST['prodBrand'])) echo $_POST['prodBrand']; ?>"                   placeholder="Samsung | Mitsubishi...">
-                Product Description             : <input type="text"    name="prodDesc"             value="<?php if(isset($_POST['prodDesc'])) echo $_POST['prodDesc']; ?>"                     placeholder="This product is a [Brand] [Category]. It's Product ID is [ID]">
-                Product Regular Cost Per Day    : <input type="number"  name="prodRegCostPerDay"    value="<?php if(isset($_POST['prodRegCostPerDay'])) echo $_POST['prodRegCostPerDay']; ?>"   placeholder="500.00">
-                Product Extended Cost Per Day   : <input type="number"  name="prodExtCostPerDay"    value="<?php if(isset($_POST['prodExtCostPerDay'])) echo $_POST['prodExtCostPerDay']; ?>"   placeholder="500.00">
+                <p>Product ID                      : <input type="text"    name="prodID"               value="<?php if(isset($_POST['prodID'])) echo $_POST['prodID']; ?>"                         placeholder="yyyy-mm-dd"></p>
+                <p>Product Category                : <input type="text"    name="prodCategory"         value="<?php if(isset($_POST['prodCategory'])) echo $_POST['prodCategory']; ?>"             placeholder="Laptop | Router | Modem..."></p>
+                <p>Product Brand                   : <input type="text"    name="prodBrand"            value="<?php if(isset($_POST['prodBrand'])) echo $_POST['prodBrand']; ?>"                   placeholder="Samsung | Mitsubishi..."></p>
+                <p>Product Description             : <input type="text"    name="prodDesc"             value="<?php if(isset($_POST['prodDesc'])) echo $_POST['prodDesc']; ?>"                     placeholder="This product is a [Brand] [Category]. It's Product ID is [ID]"></p>
+                <p>Product Regular Cost Per Day    : <input type="number"  name="prodRegCostPerDay"    value="<?php if(isset($_POST['prodRegCostPerDay'])) echo $_POST['prodRegCostPerDay']; ?>"   placeholder="500.00"></p>
+                <p>Product Extended Cost Per Day   : <input type="number"  name="prodExtCostPerDay"    value="<?php if(isset($_POST['prodExtCostPerDay'])) echo $_POST['prodExtCostPerDay']; ?>"   placeholder="500.00"></p>
                 <input type="submit" name="Add" value="Add Product">
             </form>
         </div>

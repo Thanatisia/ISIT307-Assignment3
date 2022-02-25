@@ -153,16 +153,18 @@
      *  - Update 'rent_period' if user clicks on 'extend period'
      * - Column Definition:
      *      ROW_ID                  INT             PRIMARY_KEY NOT NULL AUTO_INCREMENT,
-     *      rent_ID                 TEXT                        NOT NULL,                   //for Rental Tracking
      *      client_ID               TEXT                        NOT NULL,
      *      client_name             TEXT                        NOT NULL,
      *      prod_ID                 TEXT                        NOT NULL
      *      prod_Category           TEXT                        NOT NULL,
      *      prod_Brand              TEXT                        NOT NULL,
+     *      rent_start_date         DATE                        NOT NULL,
+     *      rent_return_date        DATE
      *      rent_regular_period     TEXT                        NOT NULL,
      *      rent_extended_period    TEXT
      *      rent_regular_cost       FLOAT                       NOT NULL,
      *      rent_extended_cost      FLOAT
+     *      rent_Status             TEXT                                                DEFAULT 'Rented'        //=> options: 'Renting' | 'Returned'
      */
 
 
@@ -175,14 +177,16 @@
         // Check if table exists
         $tb_name = "rentals";
         $column_definition = "ROW_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            rent_ID                 TEXT    NOT NULL,
             client_ID               TEXT    NOT NULL,
             client_name             TEXT    NOT NULL,
             prod_ID                 TEXT    NOT NULL,
+            rent_start_date         TEXT    NOT NULL,
+            rent_return_date        TEXT,
             rent_regular_period     TEXT    NOT NULL,
             rent_extended_period    TEXT,
             rent_regular_cost       FLOAT   NOT NULL,
-            rent_extended_cost      FLOAT";
+            rent_extended_cost      FLOAT,
+            rent_Status             TEXT                DEFAULT 'Rented'";
         $table_exists = chk_table_exists($conn, $tb_name);
         if(!$table_exists)
         {
@@ -209,13 +213,13 @@
      * - To store all past rentals and their history
      * - Column Definition:
      *      ROW_ID                  INT             PRIMARY_KEY NOT NULL AUTO_INCREMENT,
-     *      rent_ID                 TEXT                        NOT NULL,                   //=> To track rentals
      *      client_ID               TEXT                        NOT NULL,
      *      client_name             TEXT                        NOT NULL,
      *      prod_ID                 TEXT                        NOT NULL,
+     *      rent_start_date         TEXT                        NOT NULL,
+     *      rent_return_date        TEXT                        NOT NULL,
      *      rent_regular_period     TEXT                        NOT NULL,
      *      rent_extended_period    TEXT,
-     *      rent_return_period      TEXT,
      *      rent_regular_cost       FLOAT                       NOT NULL,
      *      rent_extended_cost      FLOAT
      */
@@ -230,13 +234,13 @@
         // Check if table exists
         $tb_name = "rent_history";
         $column_definition = "ROW_ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            rent_ID                 TEXT    NOT NULL,
             client_ID               TEXT    NOT NULL,
             client_name             TEXT    NOT NULL,
             prod_ID                 TEXT    NOT NULL,
+            rent_start_date         TEXT    NOT NULL,
+            rent_return_date        TEXT    NOT NULL,
             rent_regular_period     TEXT    NOT NULL,
             rent_extended_period    TEXT,
-            rent_return_period      TEXT,
             rent_regular_cost       FLOAT   NOT NULL,
             rent_extended_cost      FLOAT";
         $table_exists = chk_table_exists($conn, $tb_name);

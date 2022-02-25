@@ -18,6 +18,8 @@
 
         <h1>Admin's Page</h1>
 
+        <hr/>
+
         <?php
             // Client Validation
             if($role !== "admin")

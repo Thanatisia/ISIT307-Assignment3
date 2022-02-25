@@ -11,6 +11,7 @@
     {
         $_SESSION["role"] = "";
         $_SESSION["username"] = "";
+        $_SESSION["prod_id"] = "";
         session_unset();
         session_destroy();
     }

@@ -28,6 +28,8 @@
             echo "<h1>Your Page</h1>"    
         ?>
 
+        <hr/>
+
         <div>General Information
             <ul>
                 <li>Username  : <?php echo $u_name ?></li>

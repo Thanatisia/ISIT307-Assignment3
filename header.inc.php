@@ -40,11 +40,10 @@
                     if($role == "admin")
                     {
                         echo "<a href='admin.php'>Admin</a>";
+                        echo " | ";
                     }
-                    elseif($role == "client")
-                    {
-                        echo "<a href='my_account.php'>My Account</a>";
-                    }
+ 
+                    echo "<a href='my_account.php'>My Account</a>";
 
                     echo " | ";
                 }

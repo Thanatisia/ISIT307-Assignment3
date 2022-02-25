@@ -10,20 +10,38 @@
     // Start Session for use
     session_start();
 
+    // Format Output
+    $col_names = array(
+        "prod_ID" => "Product ID",
+        "prod_Category" => "Product Category",
+        "prod_Brand" => "Product Brand",
+        "prod_Description" => "Product Description",
+        "prod_Status" => "Product Status",
+        "prod_regular_cost_per_day" => "Product Rental Cost Per Day (Regular)",
+        "prod_extended_cost_per_day" => "Product Rental Cost Per Day (Extended)"
+    );
+    
     // Functions
     function display_all_products($conn)
     {
         // Retrieve all records from Products
+        global $col_names;
+
         $results = stmt_exec($conn, "SELECT * FROM products;");
         $size = $results["size"];
         $rows = $results["result"];
         if($size > 0)
         {
+            echo "Number of products : [$size]";
+            echo "<br/> <br/>";
             for($i=0; $i < $size; $i++)
             {
+                // Remove First Column
+                array_shift($rows[$i]);
+
                 foreach($rows[$i] as $col => $value)
                 {
-                    echo "$col : $value <br/>";
+                    echo "$col_names[$col] : $value <br/>";
                 }
                 echo "<br/>";
             }
@@ -199,67 +217,75 @@
                 </li>
             </ul>
         </div>
-
-        <?php
-            /*
-             * List all products here
-             */
-            
-            // Check if connection to MySQL works
-            // Make connection
-            $conn = db_conn(DBHOST, DBUSER, DBPASS, $DBNAME);
-
-            $verify_conn = db_conn_verify($conn);
-
-            // Verify connection
-            if($verify_conn)
-            {
-                /*
-                 * Database connection successful
-                 *  - Search and retrieve from database all products
-                 *  $sql_stmt = "SELECT * FROM products";
-                 */
-
-                /*
-                 * Check if Table Exists
-                 */
-                $table_exists = chk_table_exists($conn, "products");
-                if($table_exists)
-                {
-                    /* 
-                     * Table Exists
+    
+        <div>Records: <br/>
+            <div>
+                <?php
+                    /*
+                     * List all products here
                      */
+                    
+                    // Check if connection to MySQL works
+                    // Make connection
+                    $conn = db_conn(DBHOST, DBUSER, DBPASS, $DBNAME);
 
-                    if($searching)
+                    $verify_conn = db_conn_verify($conn);
+
+                    // Verify connection
+                    if($verify_conn)
                     {
-                        // If searching
-                        // Print out searched products
-                        if($search_results_size > 0 )
+                        /*
+                         * Database connection successful
+                         *  - Search and retrieve from database all products
+                         *  $sql_stmt = "SELECT * FROM products";
+                         */
+
+                        /*
+                         * Check if Table Exists
+                         */
+                        $table_exists = chk_table_exists($conn, "products");
+                        if($table_exists)
                         {
-                            for($i=0; $i<$search_results_size; $i++)
+                            /* 
+                             * Table Exists
+                             */
+                            if($searching)
                             {
-                                foreach($search_results[$i] as $col => $value)
+                                // If searching
+                                // Print out searched products
+                                if($search_results_size > 0 )
                                 {
-                                    echo "$col : $value <br/>";
+                                    echo "Number of products : [$search_results_size]";
+                                    echo "<br/> <br/>";
+                                    for($i=0; $i<$search_results_size; $i++)
+                                    {
+                                        // Remove First Column
+                                        array_shift($search_results[$i]);
+
+                                        foreach($search_results[$i] as $col => $value)
+                                        {
+                                            echo "$col_names[$col] : $value <br/>";
+                                        }
+                                        echo "<br/>";
+                                    }
                                 }
-                                echo "<br/>";
+                                else
+                                {
+                                    echo "No products found.";
+                                }
+                            }
+                            else
+                            {
+                                display_all_products($conn);
                             }
                         }
-                        else
-                        {
-                            echo "No products found.";
-                        }
                     }
-                    else
-                    {
-                        display_all_products($conn);
-                    }
-                }
-            }
 
-            // Close connection after use
-            $conn->close();
-        ?>
+                    // Close connection after use
+                    $conn->close();
+                ?>
+            </div>
+        </div>
 
         <hr/>
 
