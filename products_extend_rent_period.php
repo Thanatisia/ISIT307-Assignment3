@@ -128,10 +128,13 @@
         <hr/>
 
         <div>
-            <?php     
-                if(!$msg == "")
+            <?php
+                if(isset($msg))
                 {
-                    echo $msg;
+                    if(!$msg == "")
+                    {
+                        echo $msg;
+                    }
                 }
             ?>
         </div>
